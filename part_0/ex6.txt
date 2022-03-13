@@ -1,0 +1,12 @@
+
+note over browser:
+the user enters the content
+and click the button
+end note
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+server->browser: {"message":"note created"}
+
+note over browser:
+Note: No render
+end note
