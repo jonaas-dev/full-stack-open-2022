@@ -3,15 +3,18 @@ import './App.css';
 
 
 
-const Hello = () => {
+const Hello = (props) => {
   return (
     <div>
-      <p>Hello world</p>
+      <p> Hello {props.name}, you are {props.age} years old</p>
     </div>
   )
 }
 
 function App() {
+  const name = 'Peter'
+  const age = 10
+
   return (
     <div className="App">
       <header className="App-header">
@@ -28,9 +31,8 @@ function App() {
           Learn React
         </a>
       </header>
-      <Hello></Hello>
-      <Hello></Hello>
-      <Hello></Hello>
+      <Hello name="Maya" age={26 + 10} />
+      <Hello name={name} age={age} />
     </div>
   );
 }
