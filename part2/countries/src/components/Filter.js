@@ -4,9 +4,8 @@ const Filter = ({ filter, setFilter }) => {
     }
 
     return (
-        <>filter shown with <input value={filter} onChange={handleFilterChange}></input></>
+        <>find countries <input value={filter} onChange={handleFilterChange}></input></>
     )
 }
-
 
 export default Filter
