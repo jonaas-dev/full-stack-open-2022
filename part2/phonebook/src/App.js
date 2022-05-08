@@ -34,7 +34,7 @@ const App = () => {
       <PersonForm persons={persons} setPersons={setPersons}/>
 
       <h3>Numbers</h3>
-      <Persons persons={personsToShow}/>
+      <Persons persons={personsToShow} setPersons={setPersons}/>
     </>
   )
 }
