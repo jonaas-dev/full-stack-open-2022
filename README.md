@@ -5,7 +5,7 @@ For more: [LINK](https://fullstackopen.com/es/about)
 ## Parts:
 - [x] Part 0: Fundamentals of Web apps
 - [x] Part 1: Introduction to React
-- [ ] Part 2: Communicating with server
+- [x] Part 2: Communicating with server
 - [ ] Part 3: Programming a server with NodeJS and Express
 - [ ] Part 4: Testing Express servers, user administration
 - [ ] Part 5: Testing React apps
@@ -36,8 +36,8 @@ For more: [LINK](https://fullstackopen.com/es/about)
 - [x] a Rendering a collection, modules
 - [x] b Forms
 - [x] c Getting data from server
-- [ ] d Altering data in server
-- [ ] e Adding styles to React app
+- [x] d Altering data in server
+- [x] e Adding styles to React app
 
 ### Part 3: Programming a server with NodeJS and Express
 - [ ] a Node.js and Express
