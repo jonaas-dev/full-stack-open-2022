@@ -14,7 +14,6 @@ const PersonForm = ({persons, setPersons}) => {
       if(window.confirm(`${personData.name} is already to phonebook, replace the old number with a new one?`)) {
         personService
         .update(id, personData).then(response => {
-          debugger
           setPersons(persons.map(person => person.id !== id ? person : response.data))
         })
         .catch(error => {
