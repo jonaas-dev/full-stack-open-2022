@@ -32,7 +32,7 @@ const PersonForm = ({persons, setPersons, setNotificationData}) => {
         .catch(error => {
           setNotificationData({
             type : 'error',
-            message : `Person '${personData.name}' was already removed from server`
+            message : `Imformation of '${personData.name}' has already been removed from server`
           })
           setTimeout(() => {
             setNotificationData(emptyNotification)

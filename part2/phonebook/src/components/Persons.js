@@ -20,6 +20,16 @@ const Persons = ({ persons, setPersons, setNotificationData }) => {
 
                 setPersons(persons.filter(it => it.id !== person.id))
             })
+            .catch(error => {
+                setNotificationData({
+                  type : 'error',
+                  message : `Imformation of '${person.name}' has already been removed from server`
+                })
+                setTimeout(() => {
+                  setNotificationData(emptyNotification)
+                }, 5000)
+                setPersons(persons.filter(p => p.id !== person.id))
+              })
         }
     }
 
