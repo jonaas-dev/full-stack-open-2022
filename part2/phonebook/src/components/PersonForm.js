@@ -8,28 +8,49 @@ const PersonForm = ({persons, setPersons}) => {
     const handleNewUserNameChange = (event) => setNewName(event.target.value)
     const handleNewUserNumberChange = (event) => setNewNumber(event.target.value)
 
+    const foundByName = persons.find(element => element.name === newName)
+
+    const updatePerson = (id, personData) => {
+      if(window.confirm(`${personData.name} is already to phonebook, replace the old number with a new one?`)) {
+        personService
+        .update(id, personData).then(response => {
+          debugger
+          setPersons(persons.map(person => person.id !== id ? person : response.data))
+        })
+        .catch(error => {
+          alert(
+            `the person '${personData.name}' was already deleted from server`
+          )
+          setPersons(persons.filter(p => p.id !== id))
+        })
+      }
+    }
+
     const addPerson = (event) => {
         event.preventDefault()
     
-        const found = persons.find(element => element.name === newName)
-        if(found) {
-          alert(`${newName} is already added to phonebook`)
-        }
-        else if(newName === '' || newNumber === '') {
+        if(newName === '' || newNumber === '') {
           alert('Name and number cannot be empty')
         }
-        else {
-          personService
-          .create({
+        else {            
+          const personData = {
             name: newName,
             number: newNumber,
             id: persons.length + 1,
-          })
-          .then(response => {
-            setPersons(persons.concat(response.data))
-            setNewName('')
-            setNewNumber('')
-          })
+          }
+          
+          if (foundByName) { 
+            updatePerson(foundByName.id, personData)
+          }
+          else {
+            personService
+            .create(personData)
+            .then(response => {
+              setPersons(persons.concat(response.data))
+              setNewName('')
+              setNewNumber('')
+            })
+          }
         }
       }
 
