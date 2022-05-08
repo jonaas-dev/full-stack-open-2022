@@ -15,6 +15,9 @@ const PersonForm = ({persons, setPersons}) => {
         if(found) {
           alert(`${newName} is already added to phonebook`)
         }
+        else if(newName === '' || newNumber === '') {
+          alert('Name and number cannot be empty')
+        }
         else {
           personService
           .create({
