@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import personService from '../services/persons'
 
-const PersonForm = ({persons, setPersons}) => {
+
+const PersonForm = ({persons, setPersons, setNotificationData}) => {
     const [ newName, setNewName ] = useState('')
     const [ newNumber, setNewNumber ] = useState('')
   
@@ -10,16 +11,32 @@ const PersonForm = ({persons, setPersons}) => {
 
     const foundByName = persons.find(element => element.name === newName)
 
+    const emptyNotification = {
+      type: null,
+      message: null
+    }
+
     const updatePerson = (id, personData) => {
       if(window.confirm(`${personData.name} is already to phonebook, replace the old number with a new one?`)) {
         personService
         .update(id, personData).then(response => {
+          setNotificationData({
+            type : 'success',
+            message : `Modified ${personData.name}`
+          })
+          setTimeout(() => {
+            setNotificationData(emptyNotification)
+          }, 5000)
           setPersons(persons.map(person => person.id !== id ? person : response.data))
         })
         .catch(error => {
-          alert(
-            `the person '${personData.name}' was already deleted from server`
-          )
+          setNotificationData({
+            type : 'error',
+            message : `Person '${personData.name}' was already removed from server`
+          })
+          setTimeout(() => {
+            setNotificationData(emptyNotification)
+          }, 5000)
           setPersons(persons.filter(p => p.id !== id))
         })
       }
@@ -45,6 +62,13 @@ const PersonForm = ({persons, setPersons}) => {
             personService
             .create(personData)
             .then(response => {
+              setNotificationData({
+                type : 'success',
+                message : `Added ${personData.name}`
+              })
+              setTimeout(() => {
+                setNotificationData(emptyNotification)
+              }, 5000)
               setPersons(persons.concat(response.data))
               setNewName('')
               setNewNumber('')

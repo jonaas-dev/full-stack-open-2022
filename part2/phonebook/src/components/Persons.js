@@ -2,12 +2,22 @@ import Button from "./Button"
 import personService from "../services/persons"
 import { useState } from "react"
 
-const Persons = ({ persons, setPersons }) => {
+const Persons = ({ persons, setPersons, setNotificationData }) => {
+    const emptyNotification = {type: null, message: null}
+
     const deletePerson = (person) => {
         if (window.confirm(`Delete ${person.name} ?`)) {
             personService
             .delete(person.id)
             .then(() => {
+                setNotificationData({
+                    type : 'success',
+                    message : `Deleted ${person.name}`
+                  })
+                  setTimeout(() => {
+                    setNotificationData(emptyNotification)
+                  }, 5000)
+
                 setPersons(persons.filter(it => it.id !== person.id))
             })
         }
