@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import personService from '../services/persons'
 
 const PersonForm = ({persons, setPersons}) => {
     const [ newName, setNewName ] = useState('')
@@ -7,7 +8,7 @@ const PersonForm = ({persons, setPersons}) => {
     const handleNewUserNameChange = (event) => setNewName(event.target.value)
     const handleNewUserNumberChange = (event) => setNewNumber(event.target.value)
 
-    const addNewPerson = (event) => {
+    const addPerson = (event) => {
         event.preventDefault()
     
         const found = persons.find(element => element.name === newName)
@@ -15,18 +16,22 @@ const PersonForm = ({persons, setPersons}) => {
           alert(`${newName} is already added to phonebook`)
         }
         else {
-          setPersons(persons.concat({
+          personService
+          .create({
             name: newName,
             number: newNumber,
             id: persons.length + 1,
-          }))
-          setNewName('')
-          setNewNumber('')
+          })
+          .then(response => {
+            setPersons(persons.concat(response.data))
+            setNewName('')
+            setNewNumber('')
+          })
         }
       }
 
     return (
-        <form onSubmit={addNewPerson}>
+        <form onSubmit={addPerson}>
             <div>name: <input value={newName} onChange={handleNewUserNameChange}/></div>
             <div>number: <input value={newNumber} onChange={handleNewUserNumberChange}/></div>
             <div><button type="submit">add</button></div>

@@ -35,7 +35,7 @@ For more: [LINK](https://fullstackopen.com/es/about)
 ### Part 2: Communicating with server
 - [x] a Rendering a collection, modules
 - [x] b Forms
-- [ ] c Getting data from server
+- [x] c Getting data from server
 - [ ] d Altering data in server
 - [ ] e Adding styles to React app
 
