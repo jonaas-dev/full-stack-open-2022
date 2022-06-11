@@ -19,7 +19,7 @@ const PersonForm = ({persons, setPersons, setNotificationData}) => {
     const updatePerson = (id, personData) => {
       if(window.confirm(`${personData.name} is already to phonebook, replace the old number with a new one?`)) {
         personService
-        .update(id, personData).then(response => {
+        .update(id, personData, { runValidators: true }).then(response => {
           setNotificationData({
             type : 'success',
             message : `Modified ${personData.name}`
@@ -48,7 +48,7 @@ const PersonForm = ({persons, setPersons, setNotificationData}) => {
         if(newName === '' || newNumber === '') {
           alert('Name and number cannot be empty')
         }
-        else {            
+        else {  
           const personData = {
             name: newName,
             number: newNumber,
@@ -72,6 +72,16 @@ const PersonForm = ({persons, setPersons, setNotificationData}) => {
               setPersons(persons.concat(response.data))
               setNewName('')
               setNewNumber('')
+            })
+            .catch(error => {
+              setNotificationData({
+                type : 'error',
+                message : error.response.data.error
+              })
+              setTimeout(() => {
+                setNotificationData(emptyNotification)
+              }, 5000)
+              setPersons(persons.filter(p => p.id !== personData.id))
             })
           }
         }
