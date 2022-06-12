@@ -1,3 +1,3 @@
-const Button =  ({ handleClick, label}) => <button onClick={handleClick}>{label}</button>
+const Button =  ({ handleClick, label }) => <button onClick={handleClick}>{label}</button>
 
-export default Button;
+export default Button

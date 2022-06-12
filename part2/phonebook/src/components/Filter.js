@@ -1,11 +1,11 @@
 const Filter = ({ filter, setFilter }) => {
-    const handleFilterChange = (event) => {
-        setFilter(event.target.value)
-    }
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value)
+  }
 
-    return (
-        <>filter shown with <input value={filter} onChange={handleFilterChange}></input></>
-    )
+  return (
+    <>filter shown with <input value={filter} onChange={handleFilterChange}></input></>
+  )
 }
 
 
