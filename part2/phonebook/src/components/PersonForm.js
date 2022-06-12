@@ -9,7 +9,7 @@ const PersonForm = ({persons, setPersons, setNotificationData}) => {
     const handleNewUserNameChange = (event) => setNewName(event.target.value)
     const handleNewUserNumberChange = (event) => setNewNumber(event.target.value)
 
-    const foundByName = persons.find(element => element.name === newName)
+    const foundByName = persons.find(element => element ? element.name === newName : false)
 
     const emptyNotification = {
       type: null,
@@ -19,25 +19,42 @@ const PersonForm = ({persons, setPersons, setNotificationData}) => {
     const updatePerson = (id, personData) => {
       if(window.confirm(`${personData.name} is already to phonebook, replace the old number with a new one?`)) {
         personService
-        .update(id, personData, { runValidators: true }).then(response => {
-          setNotificationData({
-            type : 'success',
-            message : `Modified ${personData.name}`
-          })
-          setTimeout(() => {
-            setNotificationData(emptyNotification)
-          }, 5000)
-          setPersons(persons.map(person => person.id !== id ? person : response.data))
+        .update(id, personData).then(response => {
+          /**
+           * if not exit person with this id return null.
+           */
+            if(response.data) {
+              setNotificationData({
+                type : 'success',
+                message : `Modified ${personData.name}`
+              })
+              setTimeout(() => {
+                setNotificationData(emptyNotification)
+              }, 5000)
+              setPersons(persons.map(person => person.id !== id ? person : response.data))
+            }
+            else {
+              setNotificationData({
+                type : 'error',
+                message : `Imformation of '${personData.name}' has already been removed from server`
+              })
+              setTimeout(() => {
+                setNotificationData(emptyNotification)
+              }, 5000)
+              setPersons(persons.filter(p => p.id !== id))
+            }
         })
         .catch(error => {
+          /**
+           * validation errors
+           */
           setNotificationData({
             type : 'error',
-            message : `Imformation of '${personData.name}' has already been removed from server`
+            message : error.response.data.error
           })
           setTimeout(() => {
             setNotificationData(emptyNotification)
           }, 5000)
-          setPersons(persons.filter(p => p.id !== id))
         })
       }
     }
