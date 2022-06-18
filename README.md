@@ -6,7 +6,7 @@ For more: [LINK](https://fullstackopen.com/es/about)
 - [x] Part 0: Fundamentals of Web apps
 - [x] Part 1: Introduction to React
 - [x] Part 2: Communicating with server
-- [ ] Part 3: Programming a server with NodeJS and Express
+- [x] Part 3: Programming a server with NodeJS and Express
 - [ ] Part 4: Testing Express servers, user administration
 - [ ] Part 5: Testing React apps
 - [ ] Part 6: State management with Redux
@@ -40,10 +40,10 @@ For more: [LINK](https://fullstackopen.com/es/about)
 - [x] e Adding styles to React app
 
 ### Part 3: Programming a server with NodeJS and Express
-- [ ] a Node.js and Express
-- [ ] b Deploying app to internet
-- [ ] c Saving data to MongoDB
-- [ ] d Validation and ESLint
+- [x] a Node.js and Express
+- [x] b Deploying app to internet
+- [x] c Saving data to MongoDB
+- [x] d Validation and ESLint
 
 ### Part 4: Testing Express servers, user administration
 - [ ] a Structure of backend application, introduction to testing
