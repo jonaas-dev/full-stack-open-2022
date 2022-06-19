@@ -46,7 +46,7 @@ For more: [LINK](https://fullstackopen.com/es/about)
 - [x] d Validation and ESLint
 
 ### Part 4: Testing Express servers, user administration
-- [ ] a Structure of backend application, introduction to testing
+- [x] a Structure of backend application, introduction to testing
 - [ ] b Testing the backend
 - [ ] c User administration
 - [ ] d Token authentication
