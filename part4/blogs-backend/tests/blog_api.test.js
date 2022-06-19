@@ -17,7 +17,7 @@ beforeEach(async () => {
   await Promise.all(promiseArray)
 })
 
-describe('when there is initially some notes saved', () => {
+describe('when there is initially some blogs saved', () => {
   test('blogs are returned as json', async () => {
     await api
       .get('/api/blogs')
@@ -42,7 +42,7 @@ describe('when there is initially some notes saved', () => {
   })
 })
 
-describe('viewing a specific note', () => {
+describe('viewing a specific blog', () => {
   test('a specific blog can be viewed', async () => {
     const blogsAtStart = await helper.blogsInDb()
 
@@ -59,7 +59,7 @@ describe('viewing a specific note', () => {
   })
 })
 
-describe('addition of a new note', () => {
+describe('addition of a new blog', () => {
   test('a valid blog can be added', async () => {
     const newBlog = {
       title: 'Type wars',
@@ -118,7 +118,7 @@ describe('addition of a new note', () => {
   })
 })
 
-describe('deletion of a note', () => {
+describe('deletion of a blog', () => {
   test('a blog can be deleted', async () => {
     const blogsAtStart = await helper.blogsInDb()
     const blogsToDelete = blogsAtStart[0]
@@ -136,6 +136,32 @@ describe('deletion of a note', () => {
     const titles = blogsAtEnd.map(r => r.title)
 
     expect(titles).not.toContain(blogsToDelete.title)
+  })
+})
+
+describe('update of a blog', () => {
+  test('a blog can be updated', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+    const blogsToUpdate = blogsAtStart[0]
+
+    const newData = {
+      likes: 99
+    }
+
+    await api
+      .put(`/api/blogs/${blogsToUpdate.id}`)
+      .send(newData)
+      .expect(200)
+
+    const blogsAtEnd = await helper.blogsInDb()
+
+    expect(blogsAtEnd).toHaveLength(
+      helper.initialBlogs.length
+    )
+
+    const likes = blogsAtEnd.map(r => r.likes)
+
+    expect(likes).toContain(99)
   })
 })
 

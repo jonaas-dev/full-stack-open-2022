@@ -17,6 +17,21 @@ blogsRouter.post('/', async (request, response) => {
   response.status(201).json(savedBlog)
 })
 
+blogsRouter.put('/:id', async (request, response) => {
+  const body = request.body
+
+  const blogData = {
+    likes: body.likes
+  }
+
+  const blog = await Blog.findByIdAndUpdate(request.params.id, blogData, { new: true })
+  if (blog) {
+    response.json(blog)
+  } else {
+    response.status(404).end()
+  }
+})
+
 blogsRouter.get('/:id', async (request, response) => {
   const blog = await Blog.findById(request.params.id)
   if (blog) {
