@@ -7,6 +7,8 @@ const api = supertest(app)
 
 const Blog = require('../models/blog')
 
+var token = ''
+
 
 beforeEach(async () => {
   await Blog.deleteMany({})
@@ -59,6 +61,25 @@ describe('viewing a specific blog', () => {
   })
 })
 
+test('login test', async () => {
+
+  const loginData = {
+    username: 'root',
+    password: 'sekret'
+  }
+
+  const response = await api
+    .post('/api/login')
+    .send(loginData)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  expect(response.body).not.toEqual(undefined)
+
+  token = response.body.token
+})
+
+
 describe('addition of a new blog', () => {
   test('a valid blog can be added', async () => {
     const newBlog = {
@@ -66,10 +87,12 @@ describe('addition of a new blog', () => {
       author: 'Robert C. Martin',
       url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
       likes: 2,
+      userId: '62c09a7b2815e82f9b937030'
     }
 
     await api
       .post('/api/blogs')
+      .set({ Authorization: 'Bearer ' + token })
       .send(newBlog)
       .expect(201)
       .expect('Content-Type', /application\/json/)
@@ -93,6 +116,7 @@ describe('addition of a new blog', () => {
     await api
       .post('/api/blogs')
       .send(newBlog)
+      .set({ Authorization: 'Bearer ' + token })
       .expect(201)
       .expect('Content-Type', /application\/json/)
 
@@ -109,6 +133,7 @@ describe('addition of a new blog', () => {
 
     await api
       .post('/api/blogs')
+      .set({ Authorization: 'Bearer ' + token })
       .send(newBlog)
       .expect(400)
 
@@ -125,6 +150,7 @@ describe('deletion of a blog', () => {
 
     await api
       .delete(`/api/blogs/${blogsToDelete.id}`)
+      .set({ Authorization: 'Bearer ' + token })
       .expect(204)
 
     const blogsAtEnd = await helper.blogsInDb()
