@@ -1,13 +1,14 @@
-const User = ({user, handleLogout }) => {
+import React from 'react'
 
+const User = ({ user, handleLogout }) => {
   const userStyle = {
     paddingBottom: 20
   }
-  
+
   return (
     <div style={userStyle}>
-    {user.name} logged-in  <button onClick={()=>handleLogout(user.id)}>Logout</button>
-    </div>  
+      {user.name} logged-in  <button onClick={() => handleLogout(user.id)}>Logout</button>
+    </div>
   )
 }
 

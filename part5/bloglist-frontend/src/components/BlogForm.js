@@ -1,15 +1,17 @@
-const BlogForm = ({ addBlog, title, author, url, handleTitleChange, handleAuthorChange, handleUrlChange}) => <>
+import React from 'react'
+
+const BlogForm = ({ addBlog, title, author, url, handleTitleChange, handleAuthorChange, handleUrlChange }) => <>
   <h2>Create new</h2>
   <form onSubmit={addBlog} >
     <div>
-      title: 
+      title:
       <input
         value={title}
         onChange={handleTitleChange}
       />
     </div>
     <div>
-      author: 
+      author:
       <input
         value={author}
         onChange={handleAuthorChange}
