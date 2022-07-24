@@ -52,7 +52,7 @@ For more: [LINK](https://fullstackopen.com/es/about)
 - [x] d Token authentication
 
 ### Part 5: Testing React apps
-- [ ] a Login in frontend
+- [x] a Login in frontend
 - [ ] b props.children and proptypes
 - [ ] c Testing React apps
 - [ ] d End to end testing
