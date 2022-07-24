@@ -125,14 +125,37 @@ const App = () => {
   const deleteBlog = (id) => { 
     const toDelete = blogs.find(b => b.id === id)
     const ok = window.confirm(`Delete ${toDelete.title}`)
+    debugger
     if (ok) {
       blogService.remove(id).then(() => {
         setBlogs(blogs.filter(b => b.id !== id))
         notify(`Deleted ${toDelete.title}`)
-      })  
+      })
     }
   }
+
+  const makeALikeToABlog = (id) => { 
+    const existingBlog = blogs.find(b => b.id === id)
+    blogService.update(existingBlog.id, {...existingBlog, likes: existingBlog.likes+1 }).then(
+      savedBlog => {
+      setBlogs(blogs.map(p => p.id === existingBlog.id ? savedBlog : p ))
+      notify(`Make a like to a ${savedBlog.title}`)
+    })
+    .catch(error => {
+      console.log(error)
+      notify(
+        `the person '${existingBlog.name}' was had already been from the server`, 'alert'
+      )
+      setBlogs(blogs.filter(p => p.id !== existingBlog.id))
+    })
+  }
   
+  const blogsSortedByLikes = blogs.sort((a,b) => {   
+    if (a.likes > b.likes) { return -1  }
+    if (a.likes < b.likes) { return 1 }
+    return 0
+  })
+
   return (
     <div>
       <h1>Blogs</h1>
@@ -162,7 +185,7 @@ const App = () => {
               addBlog={addBlog} 
             />
           </Togglable> 
-          <Blogs blogs={blogs} handleDelete={deleteBlog} ></Blogs>
+          <Blogs blogs={blogsSortedByLikes} handleDelete={ deleteBlog } handleLike={makeALikeToABlog} ></Blogs>
         </div>
       }
 
