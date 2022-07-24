@@ -82,12 +82,16 @@ test('login test', async () => {
 
 describe('addition of a new blog', () => {
   test('a valid blog can be added', async () => {
+
+    var users = await helper.usersInDb()
+    const userRoot = users.find(user => user.username === 'root')
+
     const newBlog = {
       title: 'Type wars',
       author: 'Robert C. Martin',
       url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
       likes: 2,
-      userId: '62c09a7b2815e82f9b937030'
+      user: userRoot ? userRoot.id.toString() : '62c09a7b2815e82f9b937030'
     }
 
     await api
@@ -98,6 +102,7 @@ describe('addition of a new blog', () => {
       .expect('Content-Type', /application\/json/)
 
     const blogsAtEnd = await helper.blogsInDb()
+    console.log(blogsAtEnd)
     expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1)
 
     const authors = blogsAtEnd.map(n => n.author)
@@ -156,14 +161,17 @@ describe('deletion of a blog', () => {
     const blogsAtEnd = await helper.blogsInDb()
 
     expect(blogsAtEnd).toHaveLength(
-      helper.initialBlogs.length - 1
+      helper.initialBlogs.length
+      /** No elimina perquè el blog no és de l'usuari root */
     )
 
-    const titles = blogsAtEnd.map(r => r.title)
-
-    expect(titles).not.toContain(blogsToDelete.title)
+    // const titles = blogsAtEnd.map(r => r.title)
+    // expect(titles).not.toContain(blogsToDelete.title)
   })
 })
+
+// TODO: pendent fer un delete d'un blog que pertanyi a l'usuari.
+// nota: pensar en que el beforeEach deixa net l'escenari.
 
 describe('update of a blog', () => {
   test('a blog can be updated', async () => {
