@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import blogService from './services/blogs'
 import Notification from './components/Notification'
 import Blogs from './components/Blogs'
@@ -6,6 +6,8 @@ import User from './components/User'
 import loginService from './services/login'
 import BlogForm from './components/BlogForm'
 import LoginForm from './components/LoginForm'
+import Togglable from './components/Togglable'
+
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -71,6 +73,8 @@ const App = () => {
     }, 3000)
   }
 
+  const blogFormRef = useRef()
+
   const addBlog = (event) => {
     event.preventDefault()
     const existingBlog = blogs.find(b => b.title === newTitle)
@@ -101,6 +105,7 @@ const App = () => {
       user: user.id
     }
 
+    blogFormRef.current.toggleVisibility()
     blogService.create(newBlog).then(savedBlog => {
       setBlogs(blogs.concat(savedBlog))
       notify(`Added ${savedBlog.name}`)
@@ -146,15 +151,17 @@ const App = () => {
         :
         <div>
           <User user={user} handleLogout={handleLogout}></User>
-          <BlogForm 
-            title={newTitle}
-            author={newAuthor}
-            url={newUrl}
-            handleTitleChange={({ target }) => setNewTitle(target.value)}
-            handleAuthorChange={({ target }) => setNewAuthor(target.value)}
-            handleUrlChange={({ target }) => setNewUrl(target.value)}
-            addBlog={addBlog} 
-          /> 
+          <Togglable buttonLabel="new blog" ref={blogFormRef}>
+            <BlogForm 
+              title={newTitle}
+              author={newAuthor}
+              url={newUrl}
+              handleTitleChange={({ target }) => setNewTitle(target.value)}
+              handleAuthorChange={({ target }) => setNewAuthor(target.value)}
+              handleUrlChange={({ target }) => setNewUrl(target.value)}
+              addBlog={addBlog} 
+            />
+          </Togglable> 
           <Blogs blogs={blogs} handleDelete={deleteBlog} ></Blogs>
         </div>
       }
