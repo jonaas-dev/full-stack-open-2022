@@ -53,7 +53,7 @@ For more: [LINK](https://fullstackopen.com/es/about)
 
 ### Part 5: Testing React apps
 - [x] a Login in frontend
-- [ ] b props.children and proptypes
+- [x] b props.children and proptypes
 - [ ] c Testing React apps
 - [ ] d End to end testing
 
