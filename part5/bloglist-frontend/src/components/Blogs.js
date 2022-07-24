@@ -1,5 +1,6 @@
 import Blog from './Blog'
 import { React } from 'react'
+import PropTypes from 'prop-types'
 
 const Blogs = ({ blogs, handleDelete, handleLike }) => {
 
@@ -11,6 +12,12 @@ const Blogs = ({ blogs, handleDelete, handleLike }) => {
       </div>
     )}
   </>
+}
+
+Blogs.propTypes = {
+  blogs: PropTypes.array,
+  handleDelete: PropTypes.func.isRequired,
+  handleLike: PropTypes.func.isRequired,
 }
 
 export default Blogs
