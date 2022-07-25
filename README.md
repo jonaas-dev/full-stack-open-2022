@@ -54,7 +54,7 @@ For more: [LINK](https://fullstackopen.com/es/about)
 ### Part 5: Testing React apps
 - [x] a Login in frontend
 - [x] b props.children and proptypes
-- [ ] c Testing React apps
+- [x] c Testing React apps
 - [ ] d End to end testing
 
 ### Part 6: State management with Redux
