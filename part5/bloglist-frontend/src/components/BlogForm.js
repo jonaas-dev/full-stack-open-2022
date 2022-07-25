@@ -1,34 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const BlogForm = ({ addBlog, title, author, url, handleTitleChange, handleAuthorChange, handleUrlChange }) => <>
-  <h2>Create new</h2>
-  <form onSubmit={addBlog} >
-    <div>
-      title:
-      <input
-        value={title}
-        onChange={handleTitleChange}
-      />
+const BlogForm = ({ addBlog, title, author, url, handleTitleChange, handleAuthorChange, handleUrlChange }) => {
+  return (
+    <div className='formDiv'>
+      <h2>Create new</h2>
+      <form onSubmit={addBlog} data-testid="form">
+        <div>
+          title:
+          <input
+            id='title'
+            value={title}
+            onChange={handleTitleChange}
+          />
+        </div>
+        <div>
+          author:
+          <input
+            id='author'
+            value={author}
+            onChange={handleAuthorChange}
+          />
+        </div>
+        <div>url:
+          <input
+            id='url'
+            value={url}
+            onChange={handleUrlChange}
+          />
+        </div>
+        <div>
+          <button type="submit">add</button>
+        </div>
+      </form>
     </div>
-    <div>
-      author:
-      <input
-        value={author}
-        onChange={handleAuthorChange}
-      />
-    </div>
-    <div>url:
-      <input
-        value={url}
-        onChange={handleUrlChange}
-      />
-    </div>
-    <div>
-      <button type="submit">add</button>
-    </div>
-  </form>
-</>
+  )
+}
 
 BlogForm.propTypes = {
   addBlog: PropTypes.func.isRequired,

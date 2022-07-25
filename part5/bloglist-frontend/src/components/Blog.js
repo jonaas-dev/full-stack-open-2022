@@ -17,7 +17,7 @@ const Blog = ({ blog, handleDelete, handleLike }) => {
   }
 
   return (
-    <div>
+    <div className='blog'>
       <div style={blogStyle}>
         <div>
           {blog.title}
@@ -25,10 +25,10 @@ const Blog = ({ blog, handleDelete, handleLike }) => {
           <button style={showWhenVisible} onClick={() => setVisible(false)}>hide</button>
         </div>
 
-        <div style={showWhenVisible}>
+        <div className='BlogFields' style={showWhenVisible}>
           {blog.url} <br></br>
           Likes {blog.likes}  <button onClick={() => handleLike(blog.id)}>like</button> <br></br>
-          {blog.author} <br></br>
+          {blog.author}<br></br>
           <button onClick={() => handleDelete(blog.id)}>delete</button> <br></br>
         </div>
       </div>
