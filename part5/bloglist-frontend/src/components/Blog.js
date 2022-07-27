@@ -17,7 +17,7 @@ const Blog = ({ blog, handleDelete, handleLike }) => {
   }
 
   return (
-    <div className='blog'>
+    <div className='blog' data-cy='blog-content'>
       <div style={blogStyle}>
         <div>
           {blog.title}

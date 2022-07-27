@@ -70,6 +70,7 @@ describe('Blog app', function() {
           title: 'another blog created',
           author: 'by cypress',
           url: 'https://www.cypress.io/',
+          likes: null
         })
         // cy.visit('http://localhost:3000')
       })
@@ -87,6 +88,7 @@ describe('Blog app', function() {
           title: 'another blog created (1)',
           author: 'by cypress',
           url: 'https://www.cypress.io/',
+          likes: 5
         })
         cy.createBlog({
           title: 'another blog created (2)',
@@ -99,9 +101,7 @@ describe('Blog app', function() {
           author: 'by cypress',
           url: 'https://www.cypress.io/',
         })
-      })
 
-      it('one of those can be made important', function () {
         cy.contains('another blog created (1)')
           .contains('view')
           .click()
@@ -111,16 +111,20 @@ describe('Blog app', function() {
           .click()
       })
 
-      describe('delete a blog (owner)', function () {
-        it('delete one blog', function () {
-          cy.contains('another blog created (1)')
-            .contains('view')
-            .click()
+      it('check order - desc by likes', function() {
+        cy.visit('http://localhost:3000')
 
-          cy.contains('button', 'delete').click()
-
-          cy.should('not.contain', 'another blog created (1)')
+        cy.get('*[data-cy^="blog-content"]').then( blogs => {
+          cy.wrap(blogs[0]).contains('another blog created (2)') // 10 likes
+          cy.wrap(blogs[1]).contains('another blog created (1)') // 5 likes
+          cy.wrap(blogs[2]).contains('another blog created (3)') // 0 likes
         })
+      })
+
+      it('delete one blog (owner)', function () {
+        cy.contains('button', 'delete').click()
+
+        cy.should('not.contain', 'another blog created (1)')
       })
 
       describe('delete a blog (not owner)', function () {
@@ -151,10 +155,6 @@ describe('Blog app', function() {
           cy.contains('another blog created (2)')
         })
       })
-    })
-
-    describe('check descendent order by likes', function () {
-      // TODO
     })
   })
 
