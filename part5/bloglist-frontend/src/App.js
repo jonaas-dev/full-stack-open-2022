@@ -127,16 +127,19 @@ const App = () => {
         setBlogs(blogs.filter(b => b.id !== id))
         notify(`Deleted ${toDelete.title}`)
       })
+        .catch(error => {
+          console.log(error)
+          notify( `Is not possible remove the blog with title:  '${toDelete.title}'`, 'alert')
+        })
     }
   }
 
   const makeALikeToABlog = (id) => {
     const existingBlog = blogs.find(b => b.id === id)
-    blogService.update(existingBlog.id, { ...existingBlog, likes: existingBlog.likes+1 }).then(
-      savedBlog => {
-        setBlogs(blogs.map(p => p.id === existingBlog.id ? savedBlog : p ))
-        notify(`Make a like to a ${savedBlog.title}`)
-      })
+    blogService.update(existingBlog.id, { ...existingBlog, likes: existingBlog.likes+1 }).then(savedBlog => {
+      setBlogs(blogs.map(p => p.id === existingBlog.id ? savedBlog : p ))
+      notify(`Make a like to a ${savedBlog.title}`)
+    })
       .catch(error => {
         console.log(error)
         notify( `the person '${existingBlog.name}' was had already been from the server`, 'alert')

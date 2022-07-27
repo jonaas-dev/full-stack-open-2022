@@ -92,6 +92,7 @@ describe('Blog app', function() {
           title: 'another blog created (2)',
           author: 'by cypress',
           url: 'https://www.cypress.io/',
+          likes: 10
         })
         cy.createBlog({
           title: 'another blog created (3)',
@@ -109,6 +110,51 @@ describe('Blog app', function() {
           .contains('view')
           .click()
       })
+
+      describe('delete a blog (owner)', function () {
+        it('delete one blog', function () {
+          cy.contains('another blog created (1)')
+            .contains('view')
+            .click()
+
+          cy.contains('button', 'delete').click()
+
+          cy.should('not.contain', 'another blog created (1)')
+        })
+      })
+
+      describe('delete a blog (not owner)', function () {
+        beforeEach(function () {
+          cy.contains('Logout').click()
+
+          const user = {
+            name: 'Matti Luukkainen (2)',
+            username: 'root_2',
+            password: 'sekret'
+          }
+          cy.request('POST', 'http://localhost:3001/api/users/', user)
+          cy.visit('http://localhost:3000')
+        })
+
+        it('try delete one blog', function () {
+          cy.login({ username: 'root_2', password: 'sekret' })
+
+          cy.contains('another blog created (2)')
+            .contains('view')
+            .click()
+
+          cy.contains('another blog created (2)').parent()
+            .find('button')
+            .contains('delete')
+            .click()
+
+          cy.contains('another blog created (2)')
+        })
+      })
+    })
+
+    describe('check descendent order by likes', function () {
+      // TODO
     })
   })
 
