@@ -55,7 +55,7 @@ For more: [LINK](https://fullstackopen.com/es/about)
 - [x] a Login in frontend
 - [x] b props.children and proptypes
 - [x] c Testing React apps
-- [ ] d End to end testing
+- [x] d End to end testing
 
 ### Part 6: State management with Redux
 - [ ] a Flux-architecture and Redux
