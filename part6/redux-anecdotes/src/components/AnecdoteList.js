@@ -1,21 +1,21 @@
-import { voteAnecdote } from '../reducers/anecdoteReducer';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { voteAnecdote } from '../reducers/anecdoteReducer'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 const AnecdoteList = () => {
   // state = anecdotes.
   const anecdotes = useSelector((state) => {
     return [...state].sort((a, b) => {
-      return b.votes - a.votes;
-    });
-  });
-  console.log(anecdotes);
+      return b.votes - a.votes
+    })
+  })
+  console.log(anecdotes)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const vote = (id) => {
-    dispatch(voteAnecdote(id));
-  };
+    dispatch(voteAnecdote(id))
+  }
 
   return (
     <div>
@@ -29,7 +29,7 @@ const AnecdoteList = () => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default AnecdoteList;
+export default AnecdoteList

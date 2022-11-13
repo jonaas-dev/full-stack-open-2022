@@ -7,7 +7,6 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
-    "google",
   ],
   overrides: [],
   parserOptions: {
@@ -16,11 +15,12 @@ module.exports = {
   },
   plugins: ["react"],
   rules: {
-    indent: ["error", 4],
+    indent: ["error", 2],
     quotes: ["error", "single"],
     semi: ["error", "never"],
     eqeqeq: "error",
-    "linebreak-style": ["error", "windows"],
+    /*"linebreak-style": ["error", "windows"],*/
+    "linebreak-style": ["error", "unix"],
     "no-trailing-spaces": "error",
     "object-curly-spacing": ["error", "always"],
     "arrow-spacing": ["error", { before: true, after: true }],
