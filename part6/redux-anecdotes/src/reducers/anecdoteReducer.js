@@ -36,11 +36,7 @@ const reducer = (state = initialState, action) => {
     // eslint-disable-next-line no-case-declarations
     const anecdoteToChange = findAnecdoteById(state, id)
     // eslint-disable-next-line no-case-declarations
-    const changedAnecdote = {
-      ...anecdoteToChange,
-      votes: anecdoteToChange.votes + 1
-    }
-
+    const changedAnecdote = { ...anecdoteToChange, votes: anecdoteToChange.votes + 1 }
     return state.map((anecdote) =>
       anecdote.id !== id ? anecdote : changedAnecdote
     )
